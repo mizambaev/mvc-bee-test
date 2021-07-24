@@ -24,10 +24,10 @@ class UserController extends Controller
                 Application::$app->session->set('user', $user);
                 Application::$app->response->redirect('/');
             } else {
-                return $this->view('user\login', ['errors' => $user->errors]);
+                return $this->view('user/login', ['errors' => $user->errors]);
             }
         }
-        return $this->view('user\login');
+        return $this->view('user/login');
     }
 
     public function logout()

@@ -76,7 +76,7 @@
             </tr>
             </thead>
             <tbody>
-            <?php if($tasks):?>
+            <?php if($tasks['items']):?>
                 <?php foreach ($tasks['items'] as $task):?>
                     <tr>
                         <td><?php echo $task['username'];?></td>
@@ -87,7 +87,7 @@
                             <?php if ($task['created_at'] !== $task['updated_at']) echo 'Отредактировано администратором';?>
                             <?php if ($user) :?>
                                 <br>
-                                <a class="btn btn-primary" href="/logout" role="button">Выйти</a>
+                                <a class="btn btn-success" href="/edit?id=<?php echo $task['id'];?>" role="button">Редактировать</a>
                             <?php endif;?>
                         </td>
                     </tr>
