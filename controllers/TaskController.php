@@ -67,12 +67,14 @@ class TaskController extends Controller
             Application::$app->response->redirect('/');
         }
         $tasks = new Task();
-        $task = $tasks->getTaskById($_GET['id']);
-        if (!$task) {
+        $data['task'] = $tasks->getTaskById($_GET['id']);
+        $data['user'] = Application::$app->session->get('user');
+        $data['msg'] = Application::$app->session->get('flash_messages');
+        if (!$data['task']) {
             Application::$app->response->redirect('/');
         }
-        Application::$app->session->set('old_text', $task['text']);
-        return $this->view('task/edit', ['task' => $task]);
+        Application::$app->session->set('old_text', $data['task']['text']);
+        return $this->view('task/edit', $data);
     }
 
     public function update()
@@ -93,6 +95,7 @@ class TaskController extends Controller
                 $update_task['updateds_at'] = date("Y-m-d H:i:s");
             }
             $task->updateTask(array_keys($update_task), $update_task, $_POST['id']);
+            Application::$app->session->setFlash('success', 'Данные обновлены!');
             Application::$app->response->redirect('/edit?id=' . $_POST['id']);
         }
     }
