@@ -51,7 +51,7 @@ class TaskController extends Controller
             ];
             $task->loadData($new_task);
             if (!$task->validate()) {
-                return $this->view('task\create', ['errors' => $task->errors]);
+                return $this->view('task/create', ['errors' => $task->errors]);
             } else {
                 $task->save();
                 Application::$app->session->setFlash('success', 'Задача добавлена!');
